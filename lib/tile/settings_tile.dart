@@ -147,7 +147,11 @@ class SettingsTile extends AbstractSettingsTile {
   Widget buildTrailing(BuildContext context) {
     return Row(
       children: [
-        if (trailing != null) trailing!,
+        if (trailing != null)
+          Padding(
+            padding: const EdgeInsetsDirectional.only(end: 4),
+            child: trailing!,
+          ),
         if (tileType == SettingsTileType.switchTile)
           Transform.scale(
             scale: 0.8,
