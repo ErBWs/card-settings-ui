@@ -8,7 +8,6 @@ class SettingsTile extends AbstractSettingsTile {
   SettingsTile({
     this.leading,
     this.trailing,
-    this.value,
     required this.title,
     this.description,
     this.onPressed,
@@ -17,7 +16,7 @@ class SettingsTile extends AbstractSettingsTile {
   }) {
     onToggle = null;
     initialValue = null;
-    activeSwitchColor = null;
+    value = null;
     tileType = SettingsTileType.simpleTile;
   }
 
@@ -33,14 +32,12 @@ class SettingsTile extends AbstractSettingsTile {
   }) {
     onToggle = null;
     initialValue = null;
-    activeSwitchColor = null;
     tileType = SettingsTileType.navigationTile;
   }
 
   SettingsTile.switchTile({
     required this.initialValue,
     required this.onToggle,
-    this.activeSwitchColor,
     this.leading,
     this.trailing,
     required this.title,
@@ -68,12 +65,19 @@ class SettingsTile extends AbstractSettingsTile {
   /// A function that is called by tap on a tile
   final Function(BuildContext)? onPressed;
 
-  late final Color? activeSwitchColor;
-  late final Widget? value;
+  /// A function that is called by tap on a switch
   late final Function(bool?)? onToggle;
-  late final SettingsTileType tileType;
+
+  /// The widget displayed by the left of navigation icon
+  late final Widget? value;
+
+  /// The bool value used by switch
   late final bool? initialValue;
+
+  /// Whether this tile is clickable
   late final bool enabled;
+
+  late final SettingsTileType tileType;
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +156,7 @@ class SettingsTile extends AbstractSettingsTile {
               onChanged: (enabled) ? onToggle : null,
             ),
           ),
-        if (tileType == SettingsTileType.navigationTile && value != null)
+        if (value != null)
           DefaultTextStyle(
             style: TextStyle(
               color: enabled
