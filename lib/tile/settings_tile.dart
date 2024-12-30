@@ -76,22 +76,17 @@ class SettingsTile extends AbstractSettingsTile {
   late final bool enabled;
 
   @override
-  State<StatefulWidget> createState() => _SettingsTileState();
-}
-
-class _SettingsTileState extends State<SettingsTile> {
-  @override
   Widget build(BuildContext context) {
     final settingsTileInfo = SettingsTileInfo.of(context);
 
     return InkWell(
-      onTap: (widget.enabled)
+      onTap: (enabled)
           ? () {
-              if (widget.onPressed != null) {
-                widget.onPressed!.call(context);
+              if (onPressed != null) {
+                onPressed!.call(context);
               }
-              if (widget.onToggle != null) {
-                widget.onToggle!.call(null);
+              if (onToggle != null) {
+                onToggle!.call(null);
               }
             }
           : () {},
@@ -112,11 +107,11 @@ class _SettingsTileState extends State<SettingsTile> {
       padding: const EdgeInsetsDirectional.only(end: 12.0),
       child: IconTheme.merge(
         data: IconThemeData(
-          color: widget.enabled
+          color: enabled
               ? Theme.of(context).colorScheme.onSurface
               : Theme.of(context).disabledColor,
         ),
-        child: widget.leading!,
+        child: leading!,
       ),
     );
   }
@@ -127,19 +122,19 @@ class _SettingsTileState extends State<SettingsTile> {
       children: [
         DefaultTextStyle(
           style: TextStyle(
-              color: widget.enabled
+              color: enabled
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).disabledColor,
               fontSize: 16),
-          child: widget.title,
+          child: title,
         ),
-        if (widget.description != null)
+        if (description != null)
           DefaultTextStyle(
             style: TextStyle(
               color: Theme.of(context).disabledColor,
               fontSize: 13,
             ),
-            child: widget.description!,
+            child: description!,
           ),
       ],
     );
@@ -148,32 +143,31 @@ class _SettingsTileState extends State<SettingsTile> {
   Widget buildTrailing(BuildContext context) {
     return Row(
       children: [
-        if (widget.trailing != null) widget.trailing!,
-        if (widget.tileType == SettingsTileType.switchTile)
+        if (trailing != null) trailing!,
+        if (tileType == SettingsTileType.switchTile)
           Transform.scale(
             scale: 0.8,
             child: Switch(
-              value: widget.initialValue ?? true,
-              onChanged: (widget.enabled) ? widget.onToggle : null,
+              value: initialValue ?? true,
+              onChanged: (enabled) ? onToggle : null,
             ),
           ),
-        if (widget.tileType == SettingsTileType.navigationTile &&
-            widget.value != null)
+        if (tileType == SettingsTileType.navigationTile && value != null)
           DefaultTextStyle(
             style: TextStyle(
-              color: widget.enabled
+              color: enabled
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).disabledColor,
               fontSize: 16,
             ),
-            child: widget.value!,
+            child: value!,
           ),
-        if (widget.tileType == SettingsTileType.navigationTile)
+        if (tileType == SettingsTileType.navigationTile)
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 6, end: 2),
             child: Icon(
               Icons.keyboard_arrow_right,
-              color: widget.enabled
+              color: enabled
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).disabledColor,
             ),
@@ -185,10 +179,10 @@ class _SettingsTileState extends State<SettingsTile> {
   Widget buildTileContent(
       BuildContext context, SettingsTileInfo settingsTileInfo) {
     return Container(
-      padding: EdgeInsetsDirectional.only(start: 13),
+      padding: const EdgeInsetsDirectional.only(start: 13),
       child: Row(
         children: [
-          if (widget.leading != null) buildLeading(context),
+          if (leading != null) buildLeading(context),
           Expanded(
             child: Padding(
               padding: const EdgeInsetsDirectional.only(end: 10),
@@ -210,7 +204,8 @@ class _SettingsTileState extends State<SettingsTile> {
                       buildTrailing(context),
                     ],
                   ),
-                  if (settingsTileInfo.needDivider) const Divider(height: 0, endIndent: 7),
+                  if (settingsTileInfo.needDivider)
+                    const Divider(height: 0, endIndent: 7),
                 ],
               ),
             ),

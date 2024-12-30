@@ -11,13 +11,8 @@ class CustomSettingsTile extends AbstractSettingsTile {
   final Widget Function(SettingsTileInfo info) child;
 
   @override
-  State<StatefulWidget> createState() => _CustomSettingsTileState();
-}
-
-class _CustomSettingsTileState extends State<CustomSettingsTile> {
-  @override
   Widget build(BuildContext context) {
     final settingsTileInfo = SettingsTileInfo.of(context);
-    return widget.child(settingsTileInfo);
+    return child(settingsTileInfo);
   }
 }

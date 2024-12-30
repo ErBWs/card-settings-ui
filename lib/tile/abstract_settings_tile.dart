@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-abstract class AbstractSettingsTile extends StatefulWidget {
+abstract class AbstractSettingsTile extends StatelessWidget {
   const AbstractSettingsTile({super.key});
 }
