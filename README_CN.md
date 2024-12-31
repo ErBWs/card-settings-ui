@@ -1,29 +1,31 @@
-[中文](README.md)
+[English](README)
 
-## Overview
+## 概述
 
-A `card` based settings ui for flutter. Inspired by [settings_ui](https://pub.dev/packages/settings_ui)
+一个基于 `Card` 的 flutter 设置 UI，受到 [settings_ui](https://pub.dev/packages/settings_ui) 的启发
 
-> This is a pure dart package, so it supports all platforms, including ohos.
+我不喜欢原生安卓 UI，而且上面提到的这个插件有软件平台判断(没法支持 ohos)，所以我删除了所有平台实现并用 `Card` 进行包裹
 
-## Installing:
+> 这是一个纯 dart 库且没有平台判断，因此适配所有平台，包括 ohos
 
-1. Add the dependency in your `pubspec.yaml` file.
+## 安装:
+
+1. 在 `pubspec.yaml` 文件中添加依赖
 
 ```yaml
-dependencies:
+dependencies:  
   card_settings_ui: ^1.0.0
  ```  
 
-2. Import the `card_settings_ui` package.
+2. 导入 `card_settings_ui`
 
 ```dart
 import 'package:card_settings_ui/card_settings_ui.dart';
 ```
 
-## Basic Usage:
+## 使用方法:
 
-The usage is almost the same as [settings_ui](https://pub.dev/packages/settings_ui)
+用法与 [settings_ui](https://pub.dev/packages/settings_ui) 基本一致
 
 ```dart
 SettingsList(
