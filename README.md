@@ -1,4 +1,4 @@
-[中文](README_CN)
+[中文](README_CN.md)
 
 ## Overview
 
