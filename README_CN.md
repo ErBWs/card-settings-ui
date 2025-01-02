@@ -6,6 +6,10 @@
 
 我不喜欢原生安卓 UI，而且上面提到的这个插件有软件平台判断(没法支持 ohos)，所以我删除了所有平台实现并用 `Card` 进行包裹
 
+> [!IMPORTANT]
+>
+> 这个包仅能在 `MaterialApp` 中使用, 目的就是为了实现 `CupertinoListSection` 的效果
+> 
 > 这是一个纯 dart 库且没有平台判断，因此适配所有平台，包括 ohos
 
 ## 安装:
