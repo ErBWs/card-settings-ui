@@ -164,15 +164,15 @@ class SettingsTile extends AbstractSettingsTile {
           DefaultTextStyle(
             style: TextStyle(
               color: enabled
-                  ? Theme.of(context).colorScheme.onSurface
+                  ? Theme.of(context).hintColor
                   : Theme.of(context).disabledColor,
-              fontSize: 16,
+              fontSize: 15,
             ),
             child: value!,
           ),
         if (tileType == SettingsTileType.navigationTile)
           Padding(
-            padding: const EdgeInsetsDirectional.only(start: 6, end: 2),
+            padding: const EdgeInsetsDirectional.only(start: 2, end: 2),
             child: Icon(
               Icons.keyboard_arrow_right,
               color: enabled
