@@ -3,7 +3,7 @@
 ## 概述
 
 <p>  
-  <img src="https://github.com/ErBWs/card-settings-ui/blob/f8e0450239659da76e97959227c09abbb8e952f6/assets/demo.png">
+  <img src="https://raw.githubusercontent.com/ErBWs/card-settings-ui/main/assets/demo.png">
 </p>
 
 一个基于 `Card` 的 flutter 设置 UI，受到 [settings_ui](https://pub.dev/packages/settings_ui) 的启发。
