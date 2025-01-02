@@ -2,26 +2,30 @@
 
 ## 概述
 
-一个基于 `Card` 的 flutter 设置 UI，受到 [settings_ui](https://pub.dev/packages/settings_ui) 的启发
+<p>  
+  <img src="https://github.com/ErBWs/card-settings-ui/blob/f8e0450239659da76e97959227c09abbb8e952f6/assets/demo.png">
+</p>
 
-我不喜欢原生安卓 UI，而且上面提到的这个插件有软件平台判断(没法支持 ohos)，所以我删除了所有平台实现并用 `Card` 进行包裹
+一个基于 `Card` 的 flutter 设置 UI，受到 [settings_ui](https://pub.dev/packages/settings_ui) 的启发。
+
+我不喜欢原生安卓 UI，而且上面提到的这个插件有软件平台判断(没法支持 ohos)，所以我删除了所有平台实现并用 `Card` 进行包裹。
 
 > [!IMPORTANT]
 >
-> 这个包仅能在 `MaterialApp` 中使用, 目的就是为了实现 `CupertinoListSection` 的效果
+> 这个包仅能在 `MaterialApp` 中使用, 目的就是为了实现 `CupertinoListSection` 的效果。
 > 
-> 这是一个纯 dart 库且没有平台判断，因此适配所有平台，包括 ohos
+> 这是一个纯 dart 库且没有平台判断，因此适配所有平台，包括 ohos。
 
 ## 安装:
 
-1. 在 `pubspec.yaml` 文件中添加依赖
+1. 在 `pubspec.yaml` 文件中添加依赖。
 
 ```yaml
 dependencies:  
   card_settings_ui: ^1.0.0
  ```  
 
-2. 导入 `card_settings_ui`
+2. 导入 `card_settings_ui`。
 
 ```dart
 import 'package:card_settings_ui/card_settings_ui.dart';
@@ -29,7 +33,7 @@ import 'package:card_settings_ui/card_settings_ui.dart';
 
 ## 使用方法:
 
-用法与 [settings_ui](https://pub.dev/packages/settings_ui) 基本一致
+用法与 [settings_ui](https://pub.dev/packages/settings_ui) 基本一致。
 
 ```dart
 SettingsList(
@@ -53,3 +57,8 @@ SettingsList(
   ],
 ),
 ```
+
+## 示例应用
+
+此包由 [Predidit / Kazumi](https://github.com/Predidit/Kazumi) 首次使用，且由我本人实现。
+所以你可能会注意到示例代码与 [Predidit / Kazumi](https://github.com/Predidit/Kazumi) 中的代码有些类似。
