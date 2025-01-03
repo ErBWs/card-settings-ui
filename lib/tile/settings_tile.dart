@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:card_settings_ui/tile/abstract_settings_tile.dart';
 import 'package:card_settings_ui/tile/settings_tile_info.dart';
 
-enum SettingsTileType { simpleTile, switchTile, navigationTile }
+enum SettingsTileType { simpleTile, switchTile, navigationTile, checkboxTile }
 
 class SettingsTile extends AbstractSettingsTile {
   SettingsTile({
@@ -42,12 +42,27 @@ class SettingsTile extends AbstractSettingsTile {
     this.trailing,
     required this.title,
     this.description,
-    this.onPressed,
     this.enabled = true,
     super.key,
   }) {
+    onPressed = null;
     value = null;
     tileType = SettingsTileType.switchTile;
+  }
+
+  SettingsTile.checkboxTile({
+    required this.initialValue,
+    required this.onToggle,
+    this.leading,
+    this.trailing,
+    required this.title,
+    this.description,
+    this.enabled = true,
+    super.key,
+  }) {
+    onPressed = null;
+    value = null;
+    tileType = SettingsTileType.checkboxTile;
   }
 
   /// The widget at the beginning of the tile
@@ -63,7 +78,7 @@ class SettingsTile extends AbstractSettingsTile {
   final Widget? description;
 
   /// A function that is called by tap on a tile
-  final Function(BuildContext)? onPressed;
+  late final Function(BuildContext)? onPressed;
 
   /// A function that is called by tap on a switch
   late final Function(bool?)? onToggle;
@@ -159,6 +174,12 @@ class SettingsTile extends AbstractSettingsTile {
               value: initialValue ?? true,
               onChanged: (enabled) ? onToggle : null,
             ),
+          ),
+        if (tileType == SettingsTileType.checkboxTile)
+          Checkbox(
+            tristate: true,
+            value: initialValue,
+            onChanged: (enabled) ? onToggle : null,
           ),
         if (value != null)
           DefaultTextStyle(

@@ -10,9 +10,7 @@ A `Card` based settings ui for flutter. Inspired by [settings_ui](https://pub.de
 
 I don't like native Android UI, plus origin package has platform judgments (cannot support ohos), so I delete them all and wrap settings tiles with `Card`.
 
-> [!IMPORTANT]
->
-> This package is `MaterialApp` only, aiming to build settings like `CupertinoListSection` one.
+> [!TIP]
 >
 > This is a pure dart package without platform judgments, so it supports all platforms, including ohos.
 
@@ -34,6 +32,10 @@ import 'package:card_settings_ui/card_settings_ui.dart';
 ## Basic Usage:
 
 The usage is almost the same as [settings_ui](https://pub.dev/packages/settings_ui).
+
+> [!IMPORTANT]
+>
+> This package is `MaterialApp` only, aiming to build settings like `CupertinoListSection` one.
 
 ```dart
 SettingsList(
