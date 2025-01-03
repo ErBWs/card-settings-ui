@@ -20,7 +20,7 @@ I don't like native Android UI, plus origin package has platform judgments (cann
 
 ```yaml
 dependencies:
-  card_settings_ui: ^1.0.0
+  card_settings_ui: ^1.1.0
  ```  
 
 2. Import the `card_settings_ui` package.
