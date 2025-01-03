@@ -1,6 +1,7 @@
 ## Upcoming
 
 * feat: add `SettingsTile.checkboxTile` support.
+* feat: add `SettingsTile.radioTile` support.
 
 ## 1.0.0+1
 

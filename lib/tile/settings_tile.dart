@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:card_settings_ui/tile/abstract_settings_tile.dart';
 import 'package:card_settings_ui/tile/settings_tile_info.dart';
 
-enum SettingsTileType { simpleTile, switchTile, navigationTile, checkboxTile }
+enum SettingsTileType {
+  simpleTile,
+  switchTile,
+  navigationTile,
+  checkboxTile,
+  radioTile,
+}
 
-class SettingsTile extends AbstractSettingsTile {
+class SettingsTile<T> extends AbstractSettingsTile {
   SettingsTile({
     this.leading,
     this.trailing,
@@ -15,6 +21,7 @@ class SettingsTile extends AbstractSettingsTile {
     super.key,
   }) {
     onToggle = null;
+    onChanged = null;
     initialValue = null;
     value = null;
     tileType = SettingsTileType.simpleTile;
@@ -31,6 +38,7 @@ class SettingsTile extends AbstractSettingsTile {
     super.key,
   }) {
     onToggle = null;
+    onChanged = null;
     initialValue = null;
     tileType = SettingsTileType.navigationTile;
   }
@@ -46,6 +54,7 @@ class SettingsTile extends AbstractSettingsTile {
     super.key,
   }) {
     onPressed = null;
+    onChanged = null;
     value = null;
     tileType = SettingsTileType.switchTile;
   }
@@ -61,8 +70,26 @@ class SettingsTile extends AbstractSettingsTile {
     super.key,
   }) {
     onPressed = null;
+    onChanged = null;
     value = null;
     tileType = SettingsTileType.checkboxTile;
+  }
+
+  SettingsTile.radioTile({
+    required this.radioValue,
+    required this.groupValue,
+    required this.onChanged,
+    this.leading,
+    this.trailing,
+    required this.title,
+    this.description,
+    this.enabled = true,
+    super.key,
+  }) {
+    onPressed = null;
+    onToggle = null;
+    value = null;
+    tileType = SettingsTileType.radioTile;
   }
 
   /// The widget at the beginning of the tile
@@ -80,14 +107,24 @@ class SettingsTile extends AbstractSettingsTile {
   /// A function that is called by tap on a tile
   late final Function(BuildContext)? onPressed;
 
-  /// A function that is called by tap on a switch
+  /// A function that is called by tap on a switch or checkbox
+  /// !! Caution: bool value could be null, you may have to add null check
   late final Function(bool?)? onToggle;
+
+  /// A function that is called by tap on a radio button
+  late final Function(T?)? onChanged;
 
   /// The widget displayed by the left of navigation icon
   late final Widget? value;
 
   /// The bool value used by switch
   late final bool? initialValue;
+
+  /// The bool value used by switch
+  late final T radioValue;
+
+  /// The bool value used by switch
+  late final T? groupValue;
 
   /// Whether this tile is clickable
   late final bool enabled;
@@ -106,6 +143,9 @@ class SettingsTile extends AbstractSettingsTile {
               }
               if (onToggle != null) {
                 onToggle!.call(null);
+              }
+              if (onChanged != null) {
+                onChanged!.call(radioValue);
               }
             }
           : () {},
@@ -180,6 +220,12 @@ class SettingsTile extends AbstractSettingsTile {
             tristate: true,
             value: initialValue,
             onChanged: (enabled) ? onToggle : null,
+          ),
+        if (tileType == SettingsTileType.radioTile)
+          Radio<T>(
+            value: radioValue,
+            groupValue: groupValue,
+            onChanged: (enabled) ? onChanged : null,
           ),
         if (value != null)
           DefaultTextStyle(
