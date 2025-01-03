@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blue, brightness: Brightness.dark),
       ),
+      debugShowCheckedModeBanner: false,
       home: const SettingsPage(),
     );
   }
@@ -33,8 +34,21 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool isEnabled = true;
-  bool useFingerprint = true;
+  bool? selectAll = false;
+  List<bool?> securityItem = [false, false, false];
+
+  void updateSelectAll() {
+    if (securityItem.every((item) => item == true)) {
+      selectAll = true;
+    } else if (securityItem.every((item) => item == false)) {
+      selectAll = false;
+    } else {
+      selectAll = null;
+    }
+  }
+
   double size = 10.0;
+  String density = densityList[0];
 
   @override
   Widget build(BuildContext context) {
@@ -56,32 +70,83 @@ class _SettingsPageState extends State<SettingsPage> {
                     leading: Icon(Icons.history),
                     title: Text('History'),
                   ),
+                ],
+              ),
+              SettingsSection(
+                title: Text('Email density'),
+                tiles: densityList
+                    .map((e) => SettingsTile<String>.radioTile(
+                          title: Text(e),
+                          radioValue: e,
+                          groupValue: density,
+                          onChanged: (String? value) {
+                            if (value != null) {
+                              setState(() {
+                                density = value;
+                              });
+                            }
+                          },
+                        ))
+                    .toList(),
+              ),
+              SettingsSection(
+                title: Text('Security'),
+                tiles: <SettingsTile>[
                   SettingsTile.navigation(
-                    onPressed: (_) =>
-                        showToast(context, 'Navigate to extension page'),
-                    leading: Icon(Icons.extension),
-                    title: Text('Extension'),
+                    onPressed: (_) => showToast(
+                        context, 'Click checkbox in front to select all'),
+                    leading: Checkbox(
+                      value: selectAll,
+                      onChanged: (_) {
+                        if (selectAll == null || selectAll == true) {
+                          selectAll = false;
+                          securityItem.fillRange(0, securityItem.length, false);
+                        } else {
+                          selectAll = true;
+                          securityItem.fillRange(0, securityItem.length, true);
+                        }
+                        setState(() {});
+                      },
+                      tristate: true,
+                    ),
+                    title: Text('Select all'),
                   ),
                 ],
               ),
               SettingsSection(
-                title: Text('Security'),
-                bottomInfo: Text('Allow user log in with fingerprint'),
                 tiles: <SettingsTile>[
-                  SettingsTile.navigation(
-                    onPressed: (_) =>
-                        showToast(context, 'Navigate to email editing page'),
-                    leading: Icon(Icons.email_rounded),
-                    title: Text('Email'),
-                  ),
-                  SettingsTile.switchTile(
+                  SettingsTile.checkboxTile(
                     onToggle: (value) {
-                      useFingerprint = value ?? !useFingerprint;
+                      securityItem[0] = value ?? !securityItem[0]!;
+                      updateSelectAll();
                       setState(() {});
                     },
-                    initialValue: useFingerprint,
+                    initialValue: securityItem[0],
+                    leading: Icon(Icons.dialpad),
+                    title: Text('PIN'),
+                    description: Text('Allow user log in with PIN'),
+                  ),
+                  SettingsTile.checkboxTile(
+                    onToggle: (value) {
+                      securityItem[1] = value ?? !securityItem[1]!;
+                      updateSelectAll();
+                      setState(() {});
+                    },
+                    initialValue: securityItem[1],
+                    leading: Icon(Icons.password_rounded),
+                    title: Text('Password'),
+                    description: Text('Allow user log in with password'),
+                  ),
+                  SettingsTile.checkboxTile(
+                    onToggle: (value) {
+                      securityItem[2] = value ?? !securityItem[2]!;
+                      updateSelectAll();
+                      setState(() {});
+                    },
+                    initialValue: securityItem[2],
                     leading: Icon(Icons.fingerprint),
-                    title: Text('Enable fingerprint'),
+                    title: Text('Fingerprint'),
+                    description: Text('Allow user log in with fingerprint'),
                   ),
                 ],
               ),
@@ -113,28 +178,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     onPressed: (_) => showToast(context, 'Upload successfully'),
                     title: Text('Upload'),
                     trailing: Icon(Icons.cloud_upload_rounded),
-                  ),
-                ],
-              ),
-              SettingsSection(
-                bottomInfo: Text('Download settings from cloud'),
-                tiles: <SettingsTile>[
-                  SettingsTile(
-                    onPressed: (_) {
-                      showToast(context, 'Download successfully');
-                    },
-                    title: Text('Download'),
-                    trailing: Icon(Icons.cloud_download_rounded),
-                  ),
-                ],
-              ),
-              SettingsSection(
-                tiles: <SettingsTile>[
-                  SettingsTile.navigation(
-                    onPressed: (_) =>
-                        showToast(context, 'Log out successfully'),
-                    leading: Icon(Icons.logout),
-                    title: Text('Log out'),
                   ),
                 ],
               ),
@@ -214,4 +257,10 @@ final List<double> subtitleSize = [
   13.0,
   14.0,
   15.0,
+];
+
+const List<String> densityList = [
+  'Default',
+  'Comfortable',
+  'Compact',
 ];
