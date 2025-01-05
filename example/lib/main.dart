@@ -62,17 +62,6 @@ class _SettingsPageState extends State<SettingsPage> {
           child: SettingsList(
             sections: [
               SettingsSection(
-                title: Text('Common'),
-                tiles: <SettingsTile>[
-                  SettingsTile.navigation(
-                    onPressed: (_) =>
-                        showToast(context, 'Navigate to history page'),
-                    leading: Icon(Icons.history),
-                    title: Text('History'),
-                  ),
-                ],
-              ),
-              SettingsSection(
                 title: Text('Email density'),
                 tiles: densityList
                     .map((e) => SettingsTile<String>.radioTile(

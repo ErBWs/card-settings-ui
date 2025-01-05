@@ -177,6 +177,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   Widget buildTitle(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DefaultTextStyle(
@@ -184,10 +185,11 @@ class SettingsTile<T> extends AbstractSettingsTile {
               color: enabled
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).disabledColor,
-              fontSize: 16),
+              fontSize: 15),
           child: title,
         ),
-        if (description != null)
+        if (description != null) ...[
+          const SizedBox(height: 2),
           DefaultTextStyle(
             style: TextStyle(
               color: Theme.of(context).disabledColor,
@@ -195,6 +197,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
             ),
             child: description!,
           ),
+        ],
       ],
     );
   }
@@ -233,7 +236,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
               color: enabled
                   ? Theme.of(context).hintColor
                   : Theme.of(context).disabledColor,
-              fontSize: 15,
+              fontSize: 14,
             ),
             child: value!,
           ),
@@ -268,11 +271,8 @@ class SettingsTile<T> extends AbstractSettingsTile {
                   Row(
                     children: [
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.only(
-                            top: 13,
-                            bottom: 13,
-                          ),
+                        child: SizedBox(
+                          height: description != null ? 65 : 60,
                           child: buildTitle(context),
                         ),
                       ),

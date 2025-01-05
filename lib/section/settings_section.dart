@@ -20,13 +20,7 @@ class SettingsSection extends AbstractSettingsSection {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ??
-          const EdgeInsets.only(
-            top: 10,
-            bottom: 10,
-            left: 16,
-            right: 16,
-          ),
+      padding: margin ?? EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
