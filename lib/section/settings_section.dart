@@ -28,6 +28,7 @@ class SettingsSection extends AbstractSettingsSection {
             Padding(
               padding: const EdgeInsetsDirectional.only(
                 start: 18,
+                end: 18,
                 bottom: 5,
               ),
               child: DefaultTextStyle(
@@ -45,6 +46,7 @@ class SettingsSection extends AbstractSettingsSection {
             Padding(
               padding: const EdgeInsetsDirectional.only(
                 start: 18,
+                end: 18,
                 top: 5,
               ),
               child: DefaultTextStyle(
