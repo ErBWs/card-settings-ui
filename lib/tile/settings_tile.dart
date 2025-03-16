@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:card_settings_ui/tile/abstract_settings_tile.dart';
 import 'package:card_settings_ui/tile/settings_tile_info.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 enum SettingsTileType {
   simpleTile,
@@ -149,21 +151,15 @@ class SettingsTile<T> extends AbstractSettingsTile {
               }
             }
           : () {},
-      borderRadius: BorderRadius.vertical(
-        top: settingsTileInfo.isTopTile
-            ? const Radius.circular(12)
-            : Radius.zero,
-        bottom: settingsTileInfo.isBottomTile
-            ? const Radius.circular(12)
-            : Radius.zero,
-      ),
+      borderRadius: BorderRadius.circular(12),
+      mouseCursor: SystemMouseCursors.click,
       child: buildTileContent(context, settingsTileInfo),
     );
   }
 
   Widget buildLeading(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(end: 12.0),
+      padding: const EdgeInsetsDirectional.only(end: 16.0),
       child: IconTheme.merge(
         data: IconThemeData(
           color: enabled
@@ -182,17 +178,20 @@ class SettingsTile<T> extends AbstractSettingsTile {
       children: [
         DefaultTextStyle(
           style: TextStyle(
-              color: enabled
-                  ? Theme.of(context).colorScheme.onSurface
-                  : Theme.of(context).disabledColor,
-              fontSize: 15),
+            color: enabled
+                ? Theme.of(context).colorScheme.onSurface
+                : Theme.of(context).disabledColor,
+            fontSize: 15,
+          ),
           child: title,
         ),
         if (description != null) ...[
           const SizedBox(height: 2),
           DefaultTextStyle(
             style: TextStyle(
-              color: Theme.of(context).disabledColor,
+              color: enabled
+                  ? Theme.of(context).colorScheme.onSurfaceVariant
+                  : Theme.of(context).disabledColor,
               fontSize: 13,
             ),
             child: description!,
@@ -212,7 +211,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
           ),
         if (tileType == SettingsTileType.switchTile)
           Transform.scale(
-            scale: 0.8,
+            scale: 0.85,
             child: Switch(
               value: initialValue ?? true,
               onChanged: (enabled) ? onToggle : null,
@@ -234,7 +233,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
           DefaultTextStyle(
             style: TextStyle(
               color: enabled
-                  ? Theme.of(context).hintColor
+                  ? Theme.of(context).colorScheme.onSurfaceVariant
                   : Theme.of(context).disabledColor,
               fontSize: 14,
             ),
@@ -244,7 +243,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 2, end: 2),
             child: Icon(
-              Icons.keyboard_arrow_right,
+              Icons.keyboard_arrow_right_rounded,
               color: enabled
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).disabledColor,
@@ -257,32 +256,32 @@ class SettingsTile<T> extends AbstractSettingsTile {
   Widget buildTileContent(
       BuildContext context, SettingsTileInfo settingsTileInfo) {
     return Container(
-      padding: const EdgeInsetsDirectional.only(start: 13),
+      padding: const EdgeInsetsDirectional.only(start: 16),
       child: Row(
         children: [
           if (leading != null) buildLeading(context),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(end: 10),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: description != null ? 65 : 60,
-                          child: buildTitle(context),
-                        ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: description != null ? 65 : 56,
+                        child: buildTitle(context),
                       ),
-                      buildTrailing(context),
-                    ],
-                  ),
-                  if (settingsTileInfo.needDivider)
-                    const Divider(height: 0, endIndent: 7),
-                ],
-              ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 12),
+                      child: buildTrailing(context),
+                    ),
+                  ],
+                ),
+                if (settingsTileInfo.needDivider)
+                  const Divider(height: 1, endIndent: 16),
+              ],
             ),
           ),
         ],

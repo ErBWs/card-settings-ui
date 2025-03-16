@@ -27,13 +27,13 @@ class SettingsSection extends AbstractSettingsSection {
           if (title != null)
             Padding(
               padding: const EdgeInsetsDirectional.only(
-                start: 18,
-                end: 18,
+                start: 16,
+                end: 16,
                 bottom: 5,
               ),
               child: DefaultTextStyle(
                 style:
-                    TextStyle(fontSize: 13, color: Theme.of(context).hintColor),
+                    TextStyle(fontSize: 14, color: Theme.of(context).hintColor),
                 child: title!,
               ),
             ),
@@ -44,8 +44,8 @@ class SettingsSection extends AbstractSettingsSection {
           if (bottomInfo != null)
             Padding(
               padding: const EdgeInsetsDirectional.only(
-                start: 18,
-                end: 18,
+                start: 16,
+                end: 16,
                 top: 5,
               ),
               child: DefaultTextStyle(
