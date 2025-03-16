@@ -39,7 +39,6 @@ class SettingsSection extends AbstractSettingsSection {
             ),
           Card(
             elevation: 0,
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: buildTileList(),
           ),
           if (bottomInfo != null)
