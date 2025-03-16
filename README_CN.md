@@ -20,7 +20,7 @@
 
 ```yaml
 dependencies:  
-  card_settings_ui: ^1.1.2
+  card_settings_ui: ^1.1.3
  ```  
 
 2. 导入 `card_settings_ui`。

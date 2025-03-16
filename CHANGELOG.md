@@ -1,3 +1,8 @@
+## 1.1.3
+
+* chore: change sections background color to `surface`.
+* chore: more material 3 like appearance.
+
 ## 1.1.2
 
 * fix: fix long title and bottomInfo have no paddings to the right.
