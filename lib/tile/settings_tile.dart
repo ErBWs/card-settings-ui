@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:card_settings_ui/tile/abstract_settings_tile.dart';
 import 'package:card_settings_ui/tile/settings_tile_info.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 
 enum SettingsTileType {
   simpleTile,
@@ -133,6 +131,14 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   late final SettingsTileType tileType;
 
+  static const WidgetStateProperty<Icon> thumbIcon =
+      WidgetStateProperty<Icon>.fromMap(
+    <WidgetStatesConstraint, Icon>{
+      WidgetState.selected: Icon(Icons.check_rounded),
+      WidgetState.any: Icon(Icons.close_rounded),
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     final settingsTileInfo = SettingsTileInfo.of(context);
@@ -213,6 +219,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
           Transform.scale(
             scale: 0.85,
             child: Switch(
+              thumbIcon: thumbIcon,
               value: initialValue ?? true,
               onChanged: (enabled) ? onToggle : null,
             ),
