@@ -56,121 +56,119 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      body: Center(
-        child: SettingsList(
-          maxWidth: 800,
-          sections: [
-            SettingsSection(
-              title: Text('Email density'),
-              tiles: densityList
-                  .map((e) => SettingsTile<String>.radioTile(
-                        title: Text(e),
-                        radioValue: e,
-                        groupValue: density,
-                        onChanged: (String? value) {
-                          if (value != null) {
-                            setState(() {
-                              density = value;
-                            });
-                          }
-                        },
-                      ))
-                  .toList(),
-            ),
-            SettingsSection(
-              title: Text('Security'),
-              tiles: <SettingsTile>[
-                SettingsTile.navigation(
-                  onPressed: (_) => showToast(
-                      context, 'Click checkbox in front to select all'),
-                  leading: Checkbox(
-                    value: selectAll,
-                    onChanged: (_) {
-                      if (selectAll == null || selectAll == true) {
-                        selectAll = false;
-                        securityItem.fillRange(0, securityItem.length, false);
-                      } else {
-                        selectAll = true;
-                        securityItem.fillRange(0, securityItem.length, true);
-                      }
-                      setState(() {});
-                    },
-                    tristate: true,
-                  ),
-                  title: Text('Select all'),
-                ),
-              ],
-            ),
-            SettingsSection(
-              tiles: <SettingsTile>[
-                SettingsTile.checkboxTile(
-                  onToggle: (value) {
-                    securityItem[0] = value ?? !securityItem[0]!;
-                    updateSelectAll();
+      body: SettingsList(
+        maxWidth: 800,
+        sections: [
+          SettingsSection(
+            title: Text('Email density'),
+            tiles: densityList
+                .map((e) => SettingsTile<String>.radioTile(
+                      title: Text(e),
+                      radioValue: e,
+                      groupValue: density,
+                      onChanged: (String? value) {
+                        if (value != null) {
+                          setState(() {
+                            density = value;
+                          });
+                        }
+                      },
+                    ))
+                .toList(),
+          ),
+          SettingsSection(
+            title: Text('Security'),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                onPressed: (_) =>
+                    showToast(context, 'Click checkbox in front to select all'),
+                leading: Checkbox(
+                  value: selectAll,
+                  onChanged: (_) {
+                    if (selectAll == null || selectAll == true) {
+                      selectAll = false;
+                      securityItem.fillRange(0, securityItem.length, false);
+                    } else {
+                      selectAll = true;
+                      securityItem.fillRange(0, securityItem.length, true);
+                    }
                     setState(() {});
                   },
-                  initialValue: securityItem[0],
-                  leading: Icon(Icons.dialpad),
-                  title: Text('PIN'),
-                  description: Text('Allow user log in with PIN'),
+                  tristate: true,
                 ),
-                SettingsTile.checkboxTile(
-                  onToggle: (value) {
-                    securityItem[1] = value ?? !securityItem[1]!;
-                    updateSelectAll();
-                    setState(() {});
-                  },
-                  initialValue: securityItem[1],
-                  leading: Icon(Icons.password_rounded),
-                  title: Text('Password'),
-                  description: Text('Allow user log in with password'),
-                ),
-                SettingsTile.checkboxTile(
-                  onToggle: (value) {
-                    securityItem[2] = value ?? !securityItem[2]!;
-                    updateSelectAll();
-                    setState(() {});
-                  },
-                  initialValue: securityItem[2],
-                  leading: Icon(Icons.fingerprint),
-                  title: Text('Fingerprint'),
-                  description: Text('Allow user log in with fingerprint'),
-                ),
-              ],
-            ),
-            SettingsSection(
-              title: Text('Subtitle'),
-              tiles: <SettingsTile>[
-                SettingsTile.switchTile(
-                  onToggle: (value) {
-                    isEnabled = value ?? !isEnabled;
-                    setState(() {});
-                  },
-                  initialValue: isEnabled,
-                  leading: Icon(Icons.subtitles),
-                  title: Text('Enable subtitle'),
-                ),
-                SettingsTile.navigation(
-                  onPressed: (_) => subtitleSizeDialog(context),
-                  enabled: isEnabled,
-                  leading: Icon(Icons.format_size),
-                  title: Text('Subtitle size'),
-                  value: Text('$size'),
-                ),
-              ],
-            ),
-            SettingsSection(
-              bottomInfo: Text('Upload settings to cloud'),
-              tiles: <SettingsTile>[
-                SettingsTile(
-                  onPressed: (_) => showToast(context, 'Upload successfully'),
-                  title: Text('Upload'),
-                  trailing: Icon(Icons.cloud_upload_rounded),
-                ),
-              ],
-            ),
-          ],
-        ),
+                title: Text('Select all'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            tiles: <SettingsTile>[
+              SettingsTile.checkboxTile(
+                onToggle: (value) {
+                  securityItem[0] = value ?? !securityItem[0]!;
+                  updateSelectAll();
+                  setState(() {});
+                },
+                initialValue: securityItem[0],
+                leading: Icon(Icons.dialpad),
+                title: Text('PIN'),
+                description: Text('Allow user log in with PIN'),
+              ),
+              SettingsTile.checkboxTile(
+                onToggle: (value) {
+                  securityItem[1] = value ?? !securityItem[1]!;
+                  updateSelectAll();
+                  setState(() {});
+                },
+                initialValue: securityItem[1],
+                leading: Icon(Icons.password_rounded),
+                title: Text('Password'),
+                description: Text('Allow user log in with password'),
+              ),
+              SettingsTile.checkboxTile(
+                onToggle: (value) {
+                  securityItem[2] = value ?? !securityItem[2]!;
+                  updateSelectAll();
+                  setState(() {});
+                },
+                initialValue: securityItem[2],
+                leading: Icon(Icons.fingerprint),
+                title: Text('Fingerprint'),
+                description: Text('Allow user log in with fingerprint'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: Text('Subtitle'),
+            tiles: <SettingsTile>[
+              SettingsTile.switchTile(
+                onToggle: (value) {
+                  isEnabled = value ?? !isEnabled;
+                  setState(() {});
+                },
+                initialValue: isEnabled,
+                leading: Icon(Icons.subtitles),
+                title: Text('Enable subtitle'),
+              ),
+              SettingsTile.navigation(
+                onPressed: (_) => subtitleSizeDialog(context),
+                enabled: isEnabled,
+                leading: Icon(Icons.format_size),
+                title: Text('Subtitle size'),
+                value: Text('$size'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            bottomInfo: Text('Upload settings to cloud'),
+            tiles: <SettingsTile>[
+              SettingsTile(
+                onPressed: (_) => showToast(context, 'Upload successfully'),
+                title: Text('Upload'),
+                trailing: Icon(Icons.cloud_upload_rounded),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

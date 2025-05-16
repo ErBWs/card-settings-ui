@@ -21,7 +21,7 @@ class SettingsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: physics,
-      shrinkWrap: true,
+      shrinkWrap: shrinkWrap,
       itemCount: sections.length,
       padding: contentPadding ?? const EdgeInsets.symmetric(vertical: 20),
       itemBuilder: (BuildContext context, int index) {
