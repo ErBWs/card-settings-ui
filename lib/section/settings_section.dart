@@ -32,8 +32,10 @@ class SettingsSection extends AbstractSettingsSection {
                 bottom: 8,
               ),
               child: DefaultTextStyle(
-                style:
-                    TextStyle(fontSize: 14, color: Theme.of(context).hintColor),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
                 child: title!,
               ),
             ),
@@ -46,8 +48,10 @@ class SettingsSection extends AbstractSettingsSection {
                 top: 8,
               ),
               child: DefaultTextStyle(
-                style:
-                    TextStyle(fontSize: 13, color: Theme.of(context).hintColor),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Theme.of(context).hintColor,
+                ),
                 child: bottomInfo!,
               ),
             ),
