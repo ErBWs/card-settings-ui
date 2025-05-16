@@ -157,7 +157,9 @@ class SettingsTile<T> extends AbstractSettingsTile {
               }
             }
           : () {},
-      borderRadius: BorderRadius.circular(12),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       mouseCursor: SystemMouseCursors.click,
       child: buildTileContent(context, settingsTileInfo),
     );
@@ -262,37 +264,50 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   Widget buildTileContent(
       BuildContext context, SettingsTileInfo settingsTileInfo) {
-    return Container(
-      padding: const EdgeInsetsDirectional.only(start: 16),
-      child: Row(
-        children: [
-          if (leading != null) buildLeading(context),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(settingsTileInfo.isTopTile ? 16 : 4),
+            bottom: Radius.circular(settingsTileInfo.isBottomTile ? 16 : 4),
+          ),
+          child: Container(
+            color: Theme.of(context).colorScheme.surfaceBright,
+            padding: const EdgeInsetsDirectional.only(start: 16),
+            child: Row(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: description != null ? 65 : 56,
-                        child: buildTitle(context),
+                if (leading != null) buildLeading(context),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 60,
+                              child: buildTitle(context),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 12),
+                            child: buildTrailing(context),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 12),
-                      child: buildTrailing(context),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                if (settingsTileInfo.needDivider)
-                  const Divider(height: 1, endIndent: 16),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+        if (settingsTileInfo.needDivider)
+          SizedBox(height: 2),
+      ],
     );
   }
 }

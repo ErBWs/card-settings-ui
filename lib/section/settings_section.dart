@@ -20,16 +20,16 @@ class SettingsSection extends AbstractSettingsSection {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? EdgeInsets.all(8),
+      padding: margin ?? EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (title != null)
             Padding(
               padding: const EdgeInsetsDirectional.only(
-                start: 16,
-                end: 16,
-                bottom: 5,
+                start: 8,
+                end: 8,
+                bottom: 8,
               ),
               child: DefaultTextStyle(
                 style:
@@ -37,16 +37,13 @@ class SettingsSection extends AbstractSettingsSection {
                 child: title!,
               ),
             ),
-          Card(
-            elevation: 0,
-            child: buildTileList(),
-          ),
+          tileList,
           if (bottomInfo != null)
             Padding(
               padding: const EdgeInsetsDirectional.only(
-                start: 16,
-                end: 16,
-                top: 5,
+                start: 8,
+                end: 8,
+                top: 8,
               ),
               child: DefaultTextStyle(
                 style:
@@ -59,7 +56,7 @@ class SettingsSection extends AbstractSettingsSection {
     );
   }
 
-  Widget buildTileList() {
+  Widget get tileList {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: tiles.length,
