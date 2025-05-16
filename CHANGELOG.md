@@ -1,3 +1,7 @@
+## 1.2.0
+
+* feat: add `maxWidth` support for easier width configuration and prettier scroll bar.
+
 ## 1.1.3
 
 * chore: change sections background color to `surface`.
