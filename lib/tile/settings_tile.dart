@@ -1,8 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:card_settings_ui/tile/abstract_settings_tile.dart';
 import 'package:card_settings_ui/tile/settings_tile_info.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 
 enum SettingsTileType {
   simpleTile,
@@ -133,6 +132,17 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   late final SettingsTileType tileType;
 
+  final bool isDesktop =
+      Platform.isMacOS || Platform.isLinux || Platform.isWindows;
+
+  static const WidgetStateProperty<Icon> thumbIcon =
+      WidgetStateProperty<Icon>.fromMap(
+    <WidgetStatesConstraint, Icon>{
+      WidgetState.selected: Icon(Icons.check_rounded),
+      WidgetState.any: Icon(Icons.close_rounded),
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     final settingsTileInfo = SettingsTileInfo.of(context);
@@ -151,7 +161,9 @@ class SettingsTile<T> extends AbstractSettingsTile {
               }
             }
           : () {},
-      borderRadius: BorderRadius.circular(12),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       mouseCursor: SystemMouseCursors.click,
       child: buildTileContent(context, settingsTileInfo),
     );
@@ -181,7 +193,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
             color: enabled
                 ? Theme.of(context).colorScheme.onSurface
                 : Theme.of(context).disabledColor,
-            fontSize: 15,
+            fontSize: 17,
           ),
           child: title,
         ),
@@ -206,13 +218,14 @@ class SettingsTile<T> extends AbstractSettingsTile {
       children: [
         if (trailing != null)
           Padding(
-            padding: const EdgeInsetsDirectional.only(end: 4),
+            padding: const EdgeInsets.only(right: 4),
             child: trailing!,
           ),
         if (tileType == SettingsTileType.switchTile)
           Transform.scale(
             scale: 0.85,
             child: Switch(
+              thumbIcon: thumbIcon,
               value: initialValue ?? true,
               onChanged: (enabled) ? onToggle : null,
             ),
@@ -241,7 +254,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
           ),
         if (tileType == SettingsTileType.navigationTile)
           Padding(
-            padding: const EdgeInsetsDirectional.only(start: 2, end: 2),
+            padding: const EdgeInsets.only(left: 2, right: 2),
             child: Icon(
               Icons.keyboard_arrow_right_rounded,
               color: enabled
@@ -255,37 +268,45 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   Widget buildTileContent(
       BuildContext context, SettingsTileInfo settingsTileInfo) {
-    return Container(
-      padding: const EdgeInsetsDirectional.only(start: 16),
-      child: Row(
-        children: [
-          if (leading != null) buildLeading(context),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(settingsTileInfo.isTopTile ? 16 : 4),
+            bottom: Radius.circular(settingsTileInfo.isBottomTile ? 16 : 4),
+          ),
+          child: Container(
+            color: Theme.of(context).colorScheme.surfaceContainerLow,
+            height: isDesktop ? 65 : 70,
+            padding: const EdgeInsetsDirectional.only(start: 16),
+            child: Row(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: description != null ? 65 : 56,
-                        child: buildTitle(context),
+                if (leading != null) buildLeading(context),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(child: buildTitle(context)),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: buildTrailing(context),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 12),
-                      child: buildTrailing(context),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                if (settingsTileInfo.needDivider)
-                  const Divider(height: 1, endIndent: 16),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+        if (settingsTileInfo.needDivider) SizedBox(height: isDesktop ? 2 : 1.8),
+      ],
     );
   }
 }
