@@ -147,25 +147,19 @@ class SettingsTile<T> extends AbstractSettingsTile {
   Widget build(BuildContext context) {
     final settingsTileInfo = SettingsTileInfo.of(context);
 
-    return InkWell(
-      onTap: (enabled)
-          ? () {
-              if (onPressed != null) {
-                onPressed!.call(context);
-              }
-              if (onToggle != null) {
-                onToggle!.call(null);
-              }
-              if (onChanged != null) {
-                onChanged!.call(radioValue);
-              }
-            }
-          : () {},
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      mouseCursor: SystemMouseCursors.click,
-      child: buildTileContent(context, settingsTileInfo),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(settingsTileInfo.isTopTile ? 16 : 4),
+            bottom: Radius.circular(settingsTileInfo.isBottomTile ? 16 : 4),
+          ),
+          child: buildTileContent(context),
+        ),
+        if (settingsTileInfo.needDivider) SizedBox(height: 2),
+      ],
     );
   }
 
@@ -266,47 +260,54 @@ class SettingsTile<T> extends AbstractSettingsTile {
     );
   }
 
-  Widget buildTileContent(
-      BuildContext context, SettingsTileInfo settingsTileInfo) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(settingsTileInfo.isTopTile ? 16 : 4),
-            bottom: Radius.circular(settingsTileInfo.isBottomTile ? 16 : 4),
-          ),
-          child: Container(
-            color: Theme.of(context).colorScheme.surfaceContainerLow,
-            height: isDesktop ? 65 : 70,
-            padding: const EdgeInsetsDirectional.only(start: 16),
-            child: Row(
-              children: [
-                if (leading != null) buildLeading(context),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(child: buildTitle(context)),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 12),
-                            child: buildTrailing(context),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+  Widget buildTileContent(BuildContext context) {
+    // You need to wrap Ink widgets with Material to clip it properly.
+    return Material(
+      color: Theme.of(context).brightness == Brightness.light
+          ? Theme.of(context).colorScheme.surfaceContainerLow
+          : Theme.of(context).colorScheme.surfaceContainerHigh,
+      child: InkWell(
+        onTap: (enabled)
+            ? () {
+                if (onPressed != null) {
+                  onPressed!.call(context);
+                }
+                if (onToggle != null) {
+                  onToggle!.call(null);
+                }
+                if (onChanged != null) {
+                  onChanged!.call(radioValue);
+                }
+              }
+            : () {},
+        mouseCursor: SystemMouseCursors.click,
+        child: Container(
+          height: isDesktop ? 65 : 70,
+          padding: const EdgeInsetsDirectional.only(start: 16),
+          child: Row(
+            children: [
+              if (leading != null) buildLeading(context),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(child: buildTitle(context)),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: buildTrailing(context),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        if (settingsTileInfo.needDivider) SizedBox(height: isDesktop ? 2 : 1.8),
-      ],
+      ),
     );
   }
 }
