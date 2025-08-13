@@ -187,18 +187,18 @@ class SettingsTile<T> extends AbstractSettingsTile {
             color: enabled
                 ? Theme.of(context).colorScheme.onSurface
                 : Theme.of(context).disabledColor,
-            fontSize: 17,
+            fontSize: 16,
           ),
           child: title,
         ),
         if (description != null) ...[
-          const SizedBox(height: 2),
+          const SizedBox(height: 3),
           DefaultTextStyle(
             style: TextStyle(
               color: enabled
                   ? Theme.of(context).colorScheme.onSurfaceVariant
                   : Theme.of(context).disabledColor,
-              fontSize: 13,
+              fontSize: 14,
             ),
             child: description!,
           ),
