@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Color(0xff6750a4), brightness: Brightness.light),
+            seedColor: Colors.blue, brightness: Brightness.light),
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Color(0xff6750a4), brightness: Brightness.dark),
+            seedColor: Colors.blue, brightness: Brightness.dark),
       ),
       debugShowCheckedModeBanner: false,
       home: const SettingsPage(),
