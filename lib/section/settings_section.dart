@@ -20,11 +20,8 @@ class SettingsSection extends AbstractSettingsSection {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? EdgeInsetsDirectional.only(
-        start: 16,
-        end: 16,
-        bottom: 16,
-      ),
+      padding:
+          margin ?? EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,7 +30,7 @@ class SettingsSection extends AbstractSettingsSection {
               padding: const EdgeInsets.all(8),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
                 child: title!,
@@ -45,7 +42,7 @@ class SettingsSection extends AbstractSettingsSection {
               padding: const EdgeInsets.all(8),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   color: Theme.of(context).hintColor,
                 ),
                 child: bottomInfo!,

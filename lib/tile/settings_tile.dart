@@ -178,32 +178,36 @@ class SettingsTile<T> extends AbstractSettingsTile {
   }
 
   Widget buildTitle(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DefaultTextStyle(
-          style: TextStyle(
-            color: enabled
-                ? Theme.of(context).colorScheme.onSurface
-                : Theme.of(context).disabledColor,
-            fontSize: 16,
-          ),
-          child: title,
-        ),
-        if (description != null) ...[
-          const SizedBox(height: 3),
+    return Padding(
+      padding: EdgeInsetsDirectional.symmetric(vertical: 14),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           DefaultTextStyle(
             style: TextStyle(
               color: enabled
-                  ? Theme.of(context).colorScheme.onSurfaceVariant
+                  ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).disabledColor,
-              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              fontSize: 15,
             ),
-            child: description!,
+            child: title,
           ),
+          if (description != null) ...[
+            const SizedBox(height: 3),
+            DefaultTextStyle(
+              style: TextStyle(
+                color: enabled
+                    ? Theme.of(context).colorScheme.onSurfaceVariant
+                    : Theme.of(context).disabledColor,
+                fontSize: 14,
+              ),
+              child: description!,
+            ),
+          ],
         ],
-      ],
+      ),
     );
   }
 
@@ -282,7 +286,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
             : () {},
         mouseCursor: SystemMouseCursors.click,
         child: Container(
-          height: isDesktop ? 65 : 70,
+          constraints: BoxConstraints(minHeight: 65),
           padding: const EdgeInsetsDirectional.only(start: 16),
           child: Row(
             children: [
