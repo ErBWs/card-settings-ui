@@ -47,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
-  double size = 10.0;
+  double size = 12.0;
   String density = densityList[0];
 
   @override
@@ -115,17 +115,6 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               SettingsTile.checkboxTile(
                 onToggle: (value) {
-                  securityItem[1] = value ?? !securityItem[1]!;
-                  updateSelectAll();
-                  setState(() {});
-                },
-                initialValue: securityItem[1],
-                leading: Icon(Icons.password_rounded),
-                title: Text('Password'),
-                description: Text('Allow user log in with password'),
-              ),
-              SettingsTile.checkboxTile(
-                onToggle: (value) {
                   securityItem[2] = value ?? !securityItem[2]!;
                   updateSelectAll();
                   setState(() {});
@@ -139,6 +128,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingsSection(
             title: Text('Subtitle'),
+            bottomInfo: Text('Change font size'),
             tiles: <SettingsTile>[
               SettingsTile.switchTile(
                 onToggle: (value) {
@@ -149,78 +139,25 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: Icon(Icons.subtitles),
                 title: Text('Enable subtitle'),
               ),
-              SettingsTile.navigation(
-                onPressed: (_) => subtitleSizeDialog(context),
-                enabled: isEnabled,
-                leading: Icon(Icons.format_size),
-                title: Text('Subtitle size'),
-                value: Text('$size'),
-              ),
-            ],
-          ),
-          SettingsSection(
-            bottomInfo: Text('Upload settings to cloud'),
-            tiles: <SettingsTile>[
               SettingsTile(
-                onPressed: (_) => showToast(context, 'Upload successfully'),
-                title: Text('Upload'),
-                trailing: Icon(Icons.cloud_upload_rounded),
+                title: Text('Subtitle size'),
+                description: Slider(
+                  value: size,
+                  min: 10,
+                  max: 15,
+                  divisions: 5,
+                  label: '$size',
+                  onChanged: (value) {
+                    setState(() {
+                      size = value;
+                    });
+                  },
+                ),
               ),
             ],
           ),
         ],
       ),
-    );
-  }
-
-  Future subtitleSizeDialog(BuildContext context) {
-    return showDialog(
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Subtitle font size'),
-          content: StatefulBuilder(builder: (BuildContext context, _) {
-            return Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (final double i in subtitleSize) ...<Widget>[
-                  if (i == size) ...<Widget>[
-                    FilledButton(
-                      onPressed: () async {
-                        setState(() {
-                          size = i;
-                        });
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(i.toString()),
-                    ),
-                  ] else ...[
-                    FilledButton.tonal(
-                      onPressed: () async {
-                        setState(() {
-                          size = i;
-                        });
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(i.toString()),
-                    ),
-                  ]
-                ]
-              ],
-            );
-          }),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Cancel',
-                style: TextStyle(color: Theme.of(context).colorScheme.outline),
-              ),
-            ),
-          ],
-        );
-      },
-      context: context,
     );
   }
 
@@ -235,17 +172,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 }
 
-final List<double> subtitleSize = [
-  10.0,
-  11.0,
-  12.0,
-  13.0,
-  14.0,
-  15.0,
-];
-
 const List<String> densityList = [
   'Default',
-  'Comfortable',
   'Compact',
 ];
