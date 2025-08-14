@@ -1,3 +1,8 @@
+## 2.0.0
+
+* feat: new appearance inspired by Android 16 QPR.
+* feat: adaptive tile height.
+
 ## 1.2.0
 
 * feat: add `maxWidth` support for easier width configuration and prettier scroll bar.

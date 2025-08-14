@@ -6,9 +6,7 @@
   <img src="https://raw.githubusercontent.com/ErBWs/card-settings-ui/main/assets/demo.png">
 </p>
 
-一个基于 `Card` 的 flutter 设置 UI，受到 [settings_ui](https://pub.dev/packages/settings_ui) 的启发。
-
-我不喜欢原生安卓 UI，而且上面提到的这个插件有软件平台判断(没法支持 ohos)，所以我删除了所有平台实现并用 `Card` 进行包裹。
+一个基于卡片的 flutter 设置 UI，受到 [settings_ui](https://pub.dev/packages/settings_ui) 和 Android 16 QPR 的启发。
 
 > [!TIP]
 > 
@@ -20,7 +18,7 @@
 
 ```yaml
 dependencies:  
-  card_settings_ui: ^1.2.0
+  card_settings_ui: ^2.0.0
  ```  
 
 2. 导入 `card_settings_ui`。
@@ -35,7 +33,7 @@ import 'package:card_settings_ui/card_settings_ui.dart';
 
 > [!IMPORTANT]
 >
-> 这个包仅能在 `MaterialApp` 中使用, 目的就是为了实现 `CupertinoListSection` 的效果。
+> 这个包仅能在 `MaterialApp` 中使用。
 
 ```dart
 SettingsList(
