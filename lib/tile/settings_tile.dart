@@ -165,7 +165,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   Widget buildLeading(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(end: 16.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: IconTheme.merge(
         data: IconThemeData(
           color: enabled
@@ -179,7 +179,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   Widget buildTitle(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.symmetric(vertical: 14),
+      padding: EdgeInsetsDirectional.symmetric(vertical: 14, horizontal: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,29 +216,38 @@ class SettingsTile<T> extends AbstractSettingsTile {
       children: [
         if (trailing != null)
           Padding(
-            padding: const EdgeInsets.only(right: 4),
+            padding: const EdgeInsets.only(right: 16),
             child: trailing!,
           ),
         if (tileType == SettingsTileType.switchTile)
-          Transform.scale(
-            scale: 0.85,
-            child: Switch(
-              thumbIcon: thumbIcon,
-              value: initialValue ?? true,
-              onChanged: (enabled) ? onToggle : null,
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Transform.scale(
+              scale: 0.85,
+              child: Switch(
+                thumbIcon: thumbIcon,
+                value: initialValue ?? true,
+                onChanged: (enabled) ? onToggle : null,
+              ),
             ),
           ),
         if (tileType == SettingsTileType.checkboxTile)
-          Checkbox(
-            tristate: true,
-            value: initialValue,
-            onChanged: (enabled) ? onToggle : null,
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Checkbox(
+              tristate: true,
+              value: initialValue,
+              onChanged: (enabled) ? onToggle : null,
+            ),
           ),
         if (tileType == SettingsTileType.radioTile)
-          Radio<T>(
-            value: radioValue,
-            groupValue: groupValue,
-            onChanged: (enabled) ? onChanged : null,
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Radio<T>(
+              value: radioValue,
+              groupValue: groupValue,
+              onChanged: (enabled) ? onChanged : null,
+            ),
           ),
         if (value != null)
           DefaultTextStyle(
@@ -252,7 +261,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
           ),
         if (tileType == SettingsTileType.navigationTile)
           Padding(
-            padding: const EdgeInsets.only(left: 2, right: 2),
+            padding: const EdgeInsets.only(left: 2, right: 12),
             child: Icon(
               Icons.keyboard_arrow_right_rounded,
               color: enabled
@@ -287,7 +296,6 @@ class SettingsTile<T> extends AbstractSettingsTile {
         mouseCursor: SystemMouseCursors.click,
         child: Container(
           constraints: BoxConstraints(minHeight: 65),
-          padding: const EdgeInsetsDirectional.only(start: 16),
           child: Row(
             children: [
               if (leading != null) buildLeading(context),
@@ -299,10 +307,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
                     Row(
                       children: [
                         Expanded(child: buildTitle(context)),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: buildTrailing(context),
-                        ),
+                        buildTrailing(context),
                       ],
                     ),
                   ],
