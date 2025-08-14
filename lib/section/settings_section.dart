@@ -30,7 +30,7 @@ class SettingsSection extends AbstractSettingsSection {
               padding: const EdgeInsets.all(8),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 14,
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
                 child: title!,
@@ -42,7 +42,7 @@ class SettingsSection extends AbstractSettingsSection {
               padding: const EdgeInsets.all(8),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 14,
                   color: Theme.of(context).hintColor,
                 ),
                 child: bottomInfo!,
