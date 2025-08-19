@@ -261,7 +261,8 @@ class SettingsTile<T> extends AbstractSettingsTile {
                 color: enabled
                     ? Theme.of(context).hintColor
                     : Theme.of(context).disabledColor,
-                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
               ),
               child: value!,
             ),
