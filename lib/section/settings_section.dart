@@ -27,11 +27,12 @@ class SettingsSection extends AbstractSettingsSection {
         children: [
           if (title != null)
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.w600,
                 ),
                 child: title!,
               ),
@@ -39,11 +40,12 @@ class SettingsSection extends AbstractSettingsSection {
           tileList,
           if (bottomInfo != null)
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
                   color: Theme.of(context).hintColor,
+                  fontWeight: FontWeight.w600,
                 ),
                 child: bottomInfo!,
               ),

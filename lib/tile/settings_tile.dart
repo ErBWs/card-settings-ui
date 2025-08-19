@@ -115,7 +115,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
   /// A function that is called by tap on a radio button
   late final Function(T?)? onChanged;
 
-  /// The widget displayed by the left of navigation icon
+  /// The text displayed at the end of the tile
   late final Widget? value;
 
   /// The bool value used by switch
@@ -153,12 +153,12 @@ class SettingsTile<T> extends AbstractSettingsTile {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.vertical(
-            top: Radius.circular(settingsTileInfo.isTopTile ? 16 : 4),
-            bottom: Radius.circular(settingsTileInfo.isBottomTile ? 16 : 4),
+            top: Radius.circular(settingsTileInfo.isTopTile ? 20 : 3),
+            bottom: Radius.circular(settingsTileInfo.isBottomTile ? 20 : 3),
           ),
           child: buildTileContent(context),
         ),
-        if (settingsTileInfo.needDivider) SizedBox(height: 2),
+        if (settingsTileInfo.needDivider) SizedBox(height: isDesktop ? 2 : 1.8),
       ],
     );
   }
@@ -179,7 +179,10 @@ class SettingsTile<T> extends AbstractSettingsTile {
 
   Widget buildTitle(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.symmetric(vertical: 14, horizontal: 16),
+      padding: EdgeInsetsDirectional.symmetric(
+        vertical: description != null ? 17 : 24,
+        horizontal: 16,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,19 +192,20 @@ class SettingsTile<T> extends AbstractSettingsTile {
               color: enabled
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).disabledColor,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               fontSize: 15,
             ),
             child: title,
           ),
           if (description != null) ...[
-            const SizedBox(height: 3),
+            const SizedBox(height: 2),
             DefaultTextStyle(
               style: TextStyle(
                 color: enabled
-                    ? Theme.of(context).colorScheme.onSurfaceVariant
+                    ? Theme.of(context).hintColor
                     : Theme.of(context).disabledColor,
-                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
               ),
               child: description!,
             ),
@@ -250,23 +254,16 @@ class SettingsTile<T> extends AbstractSettingsTile {
             ),
           ),
         if (value != null)
-          DefaultTextStyle(
-            style: TextStyle(
-              color: enabled
-                  ? Theme.of(context).colorScheme.onSurfaceVariant
-                  : Theme.of(context).disabledColor,
-              fontSize: 14,
-            ),
-            child: value!,
-          ),
-        if (tileType == SettingsTileType.navigationTile)
           Padding(
-            padding: const EdgeInsets.only(left: 2, right: 12),
-            child: Icon(
-              Icons.keyboard_arrow_right_rounded,
-              color: enabled
-                  ? Theme.of(context).colorScheme.onSurface
-                  : Theme.of(context).disabledColor,
+            padding: const EdgeInsets.only(right: 16),
+            child: DefaultTextStyle(
+              style: TextStyle(
+                color: enabled
+                    ? Theme.of(context).hintColor
+                    : Theme.of(context).disabledColor,
+                fontSize: 14,
+              ),
+              child: value!,
             ),
           ),
       ],
@@ -277,7 +274,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
     // You need to wrap Ink widgets with Material to clip it properly.
     return Material(
       color: Theme.of(context).brightness == Brightness.light
-          ? Theme.of(context).colorScheme.surfaceContainerLow
+          ? Theme.of(context).colorScheme.surfaceContainerLowest
           : Theme.of(context).colorScheme.surfaceContainerHigh,
       child: InkWell(
         onTap: (enabled)
@@ -294,27 +291,24 @@ class SettingsTile<T> extends AbstractSettingsTile {
               }
             : () {},
         mouseCursor: SystemMouseCursors.click,
-        child: Container(
-          constraints: BoxConstraints(minHeight: 65),
-          child: Row(
-            children: [
-              if (leading != null) buildLeading(context),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(child: buildTitle(context)),
-                        buildTrailing(context),
-                      ],
-                    ),
-                  ],
-                ),
+        child: Row(
+          children: [
+            if (leading != null) buildLeading(context),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(child: buildTitle(context)),
+                      buildTrailing(context),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

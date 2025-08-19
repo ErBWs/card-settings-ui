@@ -79,29 +79,6 @@ class _SettingsPageState extends State<SettingsPage> {
           SettingsSection(
             title: Text('Security'),
             tiles: <SettingsTile>[
-              SettingsTile.navigation(
-                onPressed: (_) =>
-                    showToast(context, 'Click checkbox in front to select all'),
-                leading: Checkbox(
-                  value: selectAll,
-                  onChanged: (_) {
-                    if (selectAll == null || selectAll == true) {
-                      selectAll = false;
-                      securityItem.fillRange(0, securityItem.length, false);
-                    } else {
-                      selectAll = true;
-                      securityItem.fillRange(0, securityItem.length, true);
-                    }
-                    setState(() {});
-                  },
-                  tristate: true,
-                ),
-                title: Text('Select all'),
-              ),
-            ],
-          ),
-          SettingsSection(
-            tiles: <SettingsTile>[
               SettingsTile.checkboxTile(
                 onToggle: (value) {
                   securityItem[0] = value ?? !securityItem[0]!;
@@ -139,9 +116,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: Icon(Icons.subtitles),
                 title: Text('Enable subtitle'),
               ),
+              SettingsTile.navigation(
+                onPressed: (_) {},
+                title: Text('Subtitle Language'),
+                description: Text('English'),
+              ),
               SettingsTile(
                 title: Text('Subtitle size'),
                 description: Slider(
+                  year2023: false,
                   value: size,
                   min: 10,
                   max: 15,
@@ -159,16 +142,6 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
-  }
-
-  void showToast(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(message),
-        ),
-      );
   }
 }
 
