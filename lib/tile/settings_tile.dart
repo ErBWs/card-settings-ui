@@ -158,7 +158,7 @@ class SettingsTile<T> extends AbstractSettingsTile {
           ),
           child: buildTileContent(context),
         ),
-        if (settingsTileInfo.needDivider) SizedBox(height: isDesktop ? 2 : 1.8),
+        if (settingsTileInfo.needDivider) SizedBox(height: 2),
       ],
     );
   }
