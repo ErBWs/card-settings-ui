@@ -1,3 +1,7 @@
+## 2.0.1
+
+* chore: more Android 16 QPR like appearance.
+
 ## 2.0.0
 
 * feat: new appearance inspired by Android 16 QPR.
@@ -10,7 +14,7 @@
 ## 1.1.3
 
 * chore: change sections background color to `surface`.
-* chore: more material 3 like appearance.
+* chore: more Material 3 like appearance.
 
 ## 1.1.2
 

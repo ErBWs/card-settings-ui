@@ -18,7 +18,7 @@ A card based settings ui for flutter. Inspired by [settings_ui](https://pub.dev/
 
 ```yaml
 dependencies:
-  card_settings_ui: ^2.0.0
+  card_settings_ui: ^2.0.1
  ```  
 
 2. Import the `card_settings_ui` package.
@@ -57,8 +57,3 @@ SettingsList(
   ],
 ),
 ```
-
-## Example product
-
-This package is first used by [Predidit / Kazumi](https://github.com/Predidit/Kazumi), implemented by myself.
-So you may find the example code looks like those in [Predidit / Kazumi](https://github.com/Predidit/Kazumi).

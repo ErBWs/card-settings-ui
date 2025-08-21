@@ -18,7 +18,7 @@
 
 ```yaml
 dependencies:  
-  card_settings_ui: ^2.0.0
+  card_settings_ui: ^2.0.1
  ```  
 
 2. 导入 `card_settings_ui`。
@@ -57,8 +57,3 @@ SettingsList(
   ],
 ),
 ```
-
-## 示例应用
-
-此包由 [Predidit / Kazumi](https://github.com/Predidit/Kazumi) 首次使用，且由我本人实现。
-所以你可能会注意到示例代码与 [Predidit / Kazumi](https://github.com/Predidit/Kazumi) 中的代码有些类似。
